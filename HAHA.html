@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Gamon</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(20, 47, 255);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .heart-shape {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-45deg);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            z-index: 5; /* Love berada di depan emoji */
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart-shape::before {
+            top: -75px;
+            left: 0;
+        }
+
+        .heart-shape::after {
+            left: 75px;
+            top: 0;
+        }
+
+        .text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 10px black;
+            position: absolute;
+            transform: rotate(45deg);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s infinite ease-in-out;
+            z-index: 1; /* Menjadikan emoji di belakang love */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-20px); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-shape">
+        <div class="text">LOVE YOU ADEL</div>
+    </div>
+    <script>
+        function createEmoji() {
+            const emoji = document.createElement("div");
+            emoji.classList.add("emoji");
+            emoji.innerHTML = Math.random() > 0.5 ? "😍" : "🫰🏻";
+            document.body.appendChild(emoji);
+            
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.top = Math.random() * 100 + "vh";
+            emoji.style.animationDuration = Math.random() * 3 + 2 + "s";
+            
+            setTimeout(() => {
+                emoji.remove();
+            }, 5000);
+        }
+
+        function createLove() {
+            const love = document.createElement("div");
+            love.classList.add("emoji");
+            love.innerHTML = "❤️";
+            love.style.zIndex = 3; /* Pastikan love berada lebih tinggi dari emoji lain */
+            document.body.appendChild(love);
+            
+            love.style.left = Math.random() * 100 + "vw";
+            love.style.top = Math.random() * 100 + "vh";
+            love.style.animationDuration = Math.random() * 3 + 2 + "s";
+            
+            setTimeout(() => {
+                love.remove();
+            }, 5000);
+        }
+        
+        setInterval(createEmoji, 200);
+        setInterval(createLove, 300);
+    </script>
+</body>
+</html>
